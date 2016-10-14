@@ -12,7 +12,7 @@ var hangman = {
 $(".wordChoice").on("click", function(){
   var word = $(".wordInput").val().toUpperCase();
   hangman.storedWord = word.split("");
-  $(".wordInput").val("");
+
 
   var textBox = $("div.textBox>h2");
 
@@ -30,7 +30,7 @@ $(".wordChoice").on("click", function(){
 
 // show scoreboard
   $("div.scoreBoard").css("visibility", "visible");
-  $("div.scoreBoard").append("<p id='score'>Lives remaining: 6</p><p id='points'>Points: 0 </p>");
+  $("div.scoreBoard").append("<p id='life'>Lives Remaining: 6</p><p id='points'>Points: 0 </p>");
 });
 
 // Function is called upon capturing value and updating object - creates letter buttons with specific ids. Values are stored in object
@@ -43,12 +43,18 @@ function keyboard(){
   $(".letter").on("click", function(){
     var letter = $(this).val();
 
+    if ($.inArray(letter, hangman.storedWord) > -1)
+    {
+
     for (var i = 0; i < hangman.storedWord.length; i++)
         {
             if (hangman.storedWord[i] == letter)
             {
+              // update dashes array with letter value and update div text
               hangman.dashes[i] = letter;
               $("div.textBox>h2").html(hangman.dashes);
+
+              // remove clicked button
               $(this).prop('disabled', true);
               $(this).addClass('disabled').removeClass('letter');
 
@@ -58,13 +64,19 @@ function keyboard(){
               var newPoints = parseFloat(pointsText) + 10;
               $("p#points").text("Points: " + newPoints);
             }
-
-            else {
-              // score on score board and hangman drawing appears
-              $(this).prop('disabled', true);
-              $(this).addClass('disabled').removeClass('letter');
-            }
         };
+    }
+    else {
+      // remove clicked button
+      $(this).prop('disabled', true);
+      $(this).addClass('disabled').removeClass('letter');
+
+      // remove life
+      var lifeText = $("p#life").text();
+      lifeText = lifeText.replace(/\D/g, '');
+      var newLife = parseFloat(lifeText) - 1;
+      $("p#life").text("Lives Remaining: " + newLife);
+    }
 
     });
 
