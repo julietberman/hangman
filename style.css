@@ -31,7 +31,7 @@ section{
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: flex-start;;
+  align-items: flex-start;
 }
 
 main{
@@ -107,6 +107,16 @@ input.letter:hover {
   color: #272E29;
 }
 
+.scoreBoard{
+  background-color: #272E29;
+  opacity: 0.6;
+  border-radius: 5px;
+  visibility: hidden;
+  width: 45%;
+  height: 100px;
+  margin-bottom: 20px;
+}
+
 .textBox{
 background-color: rgba(255, 255, 255, .3);
 border-radius: 5px;
@@ -114,6 +124,7 @@ display: flex;
 flex-direction: column;
 justify-content: center;
 align-items: center;
+flex-wrap: wrap;
 text-align: center;
 margin: 0px;
 padding: 10px;

@@ -13,19 +13,26 @@ $(".wordChoice").on("click", function(){
   var word = $(".wordInput").val();
   hangman.storedWord = word.split("");
   $(".wordInput").val("");
-  var textBox = $("div.textBox")
-  textBox.html("")
+
+  var textBox = $("div.textBox");
+  textBox.html("");
+
   for (i = 0; i< hangman.storedWord.length; i++) {
     hangman.dashes[i] = "_";
     }
+// updating text box with dashes
   textBox.append(hangman.dashes);
   textBox.append("<p id='guess'>(take a guess!)</p>");
+
+// populating object with alphabet letters, populate keyboard
   hangman.abc = "abcdefghijklmnopqrstuvwxyz".split("");
   keyboard();
+
+// show scoreboard
+  $("div.scoreBoard").css("visibility", "visible");
 });
 
-  // Function is called upon capturing value and updating object - creates letter buttons with specific ids. Values are stored in object
-
+// Function is called upon capturing value and updating object - creates letter buttons with specific ids. Values are stored in object
 function keyboard(){
   for (i=0; i< hangman.abc.length; i++){
     $("div.keyboard").append("<input type='button' value='" + hangman.abc[i].toUpperCase() + "' id='" + hangman.abc[i] + "' class='letter'>")
