@@ -5,7 +5,8 @@ $(document).ready(function(){
 var hangman = {
   storedWord: [],
   dashes: [],
-  abc: []
+  abc: [],
+  images: ["images/gallow1.png", "images/gallow2.png", "images/gallow3.png", "images/gallow4.png", "images/gallow5.png", "images/gallow6.png", "images/gallow7.png", "images/gallow8.png"]
 };
 
 $(".wordChoice").on("click", function(){
@@ -14,7 +15,10 @@ $(".wordChoice").on("click", function(){
   keyboard();
   updateText();
   scoreBoard();
+  // timer();
 });
+
+console.log(hangman);
 
 $(".wordInput").keypress(function(e){
     if(e.which == 13){//Enter key pressed
@@ -56,7 +60,7 @@ function keyboard(){
 
   function scoreBoard (){
     $("div.scoreBoard").css("visibility", "visible");
-    $("div.scoreBoard").append("<p id='life'>Lives Remaining: 6</p><p id='points'>Points: 0 </p>");
+    $("div.scoreBoard").append("<p id='life'>Lives Remaining: 8</p><p id='points'>Points: 0 </p>");
   };
 
   function checkMatch(){
@@ -86,7 +90,7 @@ function keyboard(){
 
   if (x == "false"){
     updateLifeScore();
-    // INSERT FUNCTION TO UPDATE GRAPHIC hangingMan();
+    hangingMan();
   }
 };
 
@@ -103,11 +107,18 @@ function updateLifeScore (){
       $("div.textBox").html("GAME OVER!");
       $("p#life").text("Lives Remaining: 0");
       $("input.letter").prop('disabled', true);
-      // show full hanged man
+
     }
 };
 
-// function hangingMan (){
+var counter = 0;
+
+function hangingMan (){
+  $("aside").html("<img src='"+ hangman.images[counter] + "' />");
+  counter ++;
+};
+
+// function timer (){
 //
 // };
 

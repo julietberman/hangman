@@ -56,7 +56,7 @@ section{
 }
 
 main{
-  width:70%;
+  width:65%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -64,9 +64,8 @@ main{
 }
 
 aside {
-  width: 30%;
-  /*justify-content: center;*/
-
+  width: 35%;
+  justify-content: center;
 }
 
 
@@ -77,11 +76,6 @@ font-size: 18px;
 margin: 10px 0;
 }
 
-
-img {
-  opacity: 0.4;
-  z-index: 100;
-}
 
 #life {
 font-family: "Cabin Sketch";
@@ -108,7 +102,7 @@ padding-left: 20px;
 }
 
 .keyboard{
-width: 60%;
+width: 70%;
 margin-top: 40px;
 display: flex;
 flex-direction: row;
@@ -157,7 +151,7 @@ flex-wrap: wrap;
 text-align: center;
 margin: 0px;
 padding: 10px;
-width: 65%;
+width: 75%;
 min-height: 160px;
 word-wrap: break-word;
 }
