@@ -16,7 +16,17 @@ $(".wordChoice").on("click", function(){
   scoreBoard();
 });
 
-// INSERT CLICK EVENT FOR KEYPRESS
+$(".wordInput").keypress(function(e){
+    if(e.which == 13){//Enter key pressed
+      $(".wordChoice").click();//Trigger 'Let's Play' button click event
+    }
+});
+
+// INSERT KEYPRESS EVENT to star out letters as you type, to keep word hidden for player #2
+// $(".wordInput").keyup(function(event) {
+// hiddenText = event.target.value;
+// console.log(hiddenText);
+// $('.wordInput').text(hiddenText.replace(/\+/g, ' '));
 
 function captureWordValue(){
   var word = $(".wordInput").val().toUpperCase();
@@ -40,7 +50,7 @@ function keyboard(){
   function updateText(){
     var textBox = $("div.textBox>h2");
     textBox.append(hangman.dashes);
-    $("p").text("(take a guess!)");
+    $("p#subtext").text("(take a guess!)");
     $("div.input").html("");
   };
 
@@ -55,15 +65,12 @@ function keyboard(){
 
     for (var i = 0; i < hangman.storedWord.length; i++){
             if (hangman.storedWord[i] == letter){
-              // update dashes array with letter value and update div text
               hangman.dashes[i] = letter;
               $("div.textBox>h2").html(hangman.dashes);
 
-              // remove clicked button
               $(this).prop('disabled', true);
               $(this).addClass('disabled').removeClass('letter');
 
-              // get value of paragraph id score and add points per letter
               var pointsText = $("p#points").text();
               pointsText = pointsText.replace(/\D/g, '');
               var newPoints = parseFloat(pointsText) + 10;
@@ -72,7 +79,6 @@ function keyboard(){
               x = "true";
             }
             else {
-              // remove clicked button
               $(this).prop('disabled', true);
               $(this).addClass('disabled').removeClass('letter');
             }
@@ -80,24 +86,29 @@ function keyboard(){
 
   if (x == "false"){
     updateLifeScore();
+    // INSERT FUNCTION TO UPDATE GRAPHIC hangingMan();
   }
 };
 
 function updateLifeScore (){
   var lives = $("p#life").text();
   lives = lives.replace(/\D/g, '');
-  var newLife = (parseFloat(lives) - 1);
-  $("p#life").text("Lives Remaining: " + newLife);
+
+  var newLife = parseInt(lives) - 1;
+
+    if (newLife > 0){
+      $("p#life").text("Lives Remaining: " + newLife);
+    }
+    else {
+      $("div.textBox").html("GAME OVER!");
+      $("p#life").text("Lives Remaining: 0");
+      $("input.letter").prop('disabled', true);
+      // show full hanged man
+    }
 };
 
-});
-
-// function draw (){
+// function hangingMan (){
 //
 // };
 
-// // To star out letters as you type, to keep word hidden for player #2
-// $(".wordInput").keyup(function(event) {
-// hiddenText = event.target.value;
-// console.log(hiddenText);
-// $('.wordInput').text(hiddenText.replace(/\+/g, ' '));
+});
