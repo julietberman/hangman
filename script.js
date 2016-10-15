@@ -21,16 +21,11 @@ $(".wordChoice").on("click", function(){
 console.log(hangman);
 
 $(".wordInput").keypress(function(e){
-    if(e.which == 13){//Enter key pressed
-      $(".wordChoice").click();//Trigger 'Let's Play' button click event
+    if(e.which == 13){
+      $(".wordChoice").click();
     }
 });
 
-// INSERT KEYPRESS EVENT to star out letters as you type, to keep word hidden for player #2
-// $(".wordInput").keyup(function(event) {
-// hiddenText = event.target.value;
-// console.log(hiddenText);
-// $('.wordInput').text(hiddenText.replace(/\+/g, ' '));
 
 function captureWordValue(){
   var word = $(".wordInput").val().toUpperCase();
