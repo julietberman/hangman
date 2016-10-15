@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-  console.log("hello jQuery");
+console.log("hello jQuery");
 
 var hangman = {
   storedWord: [],
@@ -18,14 +18,11 @@ $(".wordChoice").on("click", function(){
   // timer();
 });
 
-console.log(hangman);
-
 $(".wordInput").keypress(function(e){
     if(e.which == 13){
       $(".wordChoice").click();
     }
 });
-
 
 function captureWordValue(){
   var word = $(".wordInput").val().toUpperCase();
@@ -34,7 +31,12 @@ function captureWordValue(){
 
 function createDashes(){
   for (var i = 0; i< hangman.storedWord.length; i++) {
-    hangman.dashes[i] = "_";
+      if (hangman.storedWord[i] != " "){
+        hangman.dashes[i] = "_";
+      }
+      else {
+        hangman.dashes[i] = " ";
+      }
     }
 };
 
@@ -46,24 +48,24 @@ function keyboard(){
   $("input.letter").on("click", checkMatch);
 };
 
-  function updateText(){
-    var textBox = $("div.textBox>h2");
-    textBox.append(hangman.dashes);
-    $("p#subtext").text("(take a guess!)");
-    $("div.input").html("");
-  };
+function updateText(){
+  var textBox = $("div.textBox>h2");
+  textBox.append(hangman.dashes);
+  $("p#subtext").text("(take a guess!)");
+  $("div.input").html("");
+};
 
-  function scoreBoard (){
-    $("div.scoreBoard").css("visibility", "visible");
-    $("div.scoreBoard").append("<p id='life'>Lives Remaining: 8</p><p id='points'>Points: 0 </p>");
-  };
+function scoreBoard (){
+  $("div.scoreBoard").css("visibility", "visible");
+  $("div.scoreBoard").append("<p id='life'>Lives Remaining: 8</p><p id='points'>Points: 0 </p>");
+};
 
-  function checkMatch(){
-    var letter = $(this).val();
-    var x = "false";
+function checkMatch(){
+  var letter = $(this).val();
+  var x = "false";
 
-    for (var i = 0; i < hangman.storedWord.length; i++){
-            if (hangman.storedWord[i] == letter){
+  for (var i = 0; i < hangman.storedWord.length; i++){
+          if (hangman.storedWord[i] == letter){
               hangman.dashes[i] = letter;
               $("div.textBox>h2").html(hangman.dashes);
 
@@ -76,17 +78,18 @@ function keyboard(){
               $("p#points").text("Points: " + newPoints);
 
               x = "true";
-            }
-            else {
+          }
+          else {
               $(this).prop('disabled', true);
               $(this).addClass('disabled').removeClass('letter');
-            }
+          }
         };
 
   if (x == "false"){
     updateLifeScore();
     hangingMan();
   }
+  checkWin();
 };
 
 function updateLifeScore (){
@@ -99,9 +102,12 @@ function updateLifeScore (){
       $("p#life").text("Lives Remaining: " + newLife);
     }
     else {
-      $("div.textBox").html("GAME OVER!");
+      $("p#subtext").html("<span id='lose'>GAME OVER!</span>");
       $("p#life").text("Lives Remaining: 0");
       $("input.letter").prop('disabled', true);
+      $("div.input").html("<button id='reveal'>Reveal answer?</button><button id='playagain'>Play again!</button>");
+      $("button#reveal").on("click", revealAnswer);
+      $("button#playagain").on("click", playAgain);
 
     }
 };
@@ -113,8 +119,27 @@ function hangingMan (){
   counter ++;
 };
 
+function checkWin(){
+  if ($.inArray("_", hangman.dashes) < 0){
+    $("p#subtext").html("<span id='win'>YOU WIN!</span>");
+    $("input.letter").prop('disabled', true);
+    $("div.input").html("<button id='playagain'>Play again!</button>");
+    $("button#playagain").on("click", playAgain);
+  }
+};
+
 // function timer (){
 //
 // };
+
+function revealAnswer (){
+  $("div.textBox>h2").html(hangman.storedWord);
+  $("div.input").html("<button id='playagain'>Play again!</button>");
+  $("button#playagain").on("click", playAgain);
+}
+
+function playAgain (){
+  location.reload();
+}
 
 });
