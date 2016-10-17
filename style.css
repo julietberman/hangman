@@ -35,7 +35,7 @@ h2 {
 
 
 @keyframes scaling {
-	to { transform: scale(2); }
+	to { transform: scale(1.5); }
 }
 
 span#win{
@@ -128,6 +128,7 @@ padding-left: 20px;
 
 .timer {
   background-color: #FFF7EF;
+  opacity: .7;
   border-radius: 3px;
   width: 240px;
   height: 60px;
@@ -169,7 +170,7 @@ input.letter:hover {
   opacity: 0.6;
   border-radius: 5px;
   visibility: hidden;
-  width: 45%;
+  width: 50%;
   height: 100px;
   margin-bottom: 20px;
   display: flex;

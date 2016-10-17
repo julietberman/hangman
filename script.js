@@ -9,6 +9,30 @@ var hangman = {
   images: ["images/gallow1.png", "images/gallow2.png", "images/gallow3.png", "images/gallow4.png", "images/gallow5.png", "images/gallow6.png", "images/gallow7.png", "images/gallow8.png"]
 };
 
+
+var seconds = 90;
+var countDown = null;
+
+function timer(){
+
+       seconds--;
+        if (seconds >= 0) {
+          $("#timer").html(seconds + " seconds");
+        }
+        if (seconds <= 15){
+          $("#timer").css("color", "red");
+        }
+        if (seconds === 0) {
+          $("p#subtext").html("<span id='lose'>GAME OVER!</span>");
+          $("input.letter").prop('disabled', true);
+          $("div.input").html("<button id='reveal'>Reveal answer?</button><button id='playagain'>Play again!</button>");
+          $("button#reveal").on("click", revealAnswer);
+          $("button#playagain").on("click", playAgain);
+          $("#timer").html("<span>0 seconds</span>");
+          $("aside").html("<img src='"+ hangman.images[7] + "' />");
+        }
+};
+
 $(".wordChoice").on("click", function(){
 
   if ($(".wordInput").val() ==""){
@@ -20,7 +44,7 @@ $(".wordChoice").on("click", function(){
   keyboard();
   updateText();
   scoreBoard();
-  timer();
+  countDown = setInterval(timer, 1000);
   }
 });
 
@@ -96,7 +120,6 @@ function checkMatch(){
     hangingMan();
   }
   checkWin();
-  console.log(hangman);
 };
 
 function updateLifeScore (){
@@ -115,7 +138,7 @@ function updateLifeScore (){
       $("div.input").html("<button id='reveal'>Reveal answer?</button><button id='playagain'>Play again!</button>");
       $("button#reveal").on("click", revealAnswer);
       $("button#playagain").on("click", playAgain);
-
+      clearInterval(countDown);
     }
 };
 
@@ -132,34 +155,9 @@ function checkWin(){
     $("input.letter").prop('disabled', true);
     $("div.input").html("<button id='playagain'>Play again!</button>");
     $("button#playagain").on("click", playAgain);
-    clearInterval(timer);
+    clearInterval(countDown);
+    bonusPoints();
   }
-};
-
-
-function timer(){
-
-  var seconds = 90;
-
-  setInterval(function() {
-       seconds--;
-        if (seconds >= 0) {
-          $("#timer").html(seconds + " seconds");
-        }
-        if (seconds <= 15){
-          $("#timer").css("color", "red");
-        }
-        if (seconds === 0) {
-          $("p#subtext").html("<span id='lose'>GAME OVER!</span>");
-          $("input.letter").prop('disabled', true);
-          $("div.input").html("<button id='reveal'>Reveal answer?</button><button id='playagain'>Play again!</button>");
-          $("button#reveal").on("click", revealAnswer);
-          $("button#playagain").on("click", playAgain);
-          $("#timer").html("<span>0 seconds</span>");
-          $("aside").html("<img src='"+ hangman.images[7] + "' />");
-
-         }
-       }, 1000);
 };
 
 
@@ -171,6 +169,11 @@ function revealAnswer (){
 
 function playAgain (){
   location.reload();
+}
+
+function bonusPoints(){
+  var bonus = seconds * 2;
+  $("p#points").append(" + " + bonus + " time bonus")
 }
 
 });
