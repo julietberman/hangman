@@ -1,3 +1,7 @@
+* {
+transition: all 2.0s ease;
+}
+
 body{
 background-image: url("images/chalkboard.png");
 background-size: cover;
@@ -33,26 +37,6 @@ h2 {
   max-width: 100%;
 }
 
-
-@keyframes scaling {
-	to { transform: scale(1.5); }
-}
-
-span#win{
-	display: inline-block;
-	font-size: 30px;
-	color: #FCD536;
-	animation: scaling 3s ease-in-out;
-	transform-origin: center;
-}
-
-span#lose{
-	display: inline-block;
-	font-size: 30px;
-	color: #BE1E17;
-	animation: scaling 3s ease-in-out;
-	transform-origin: center;
-}
 
 nav {
   display: flex;
@@ -93,38 +77,10 @@ font-size: 18px;
 margin: 10px 0;
 }
 
-button{
+button, input{
 opacity: 0.6;
 }
 
-#life {
-font-family: "Cabin Sketch";
-color: white;
-font-size: 22px;
-padding-left: 20px;
-}
-
-#points {
-font-family: "Cabin Sketch";
-color: white;
-font-size: 22px;
-padding-left: 20px;
-}
-
-#timer{
-  font-size: 40px;
-  font-family:'digital-clock-font';
-}
-
-@font-face{
- font-family:'digital-clock-font';
- src: url('fonts/digital-7.regular.ttf');
-}
-
-@font-face{
- font-family:'chalk';
- src: url('fonts/chalkitup.ttf');
-}
 
 .timer {
   background-color: #FFF7EF;
@@ -160,7 +116,7 @@ margin: 4px;
 transition: all 0.3s ease 0s;
 }
 
-input.letter:hover {
+.letter:hover {
   background: #759779;
   color: #272E29;
 }
@@ -203,4 +159,53 @@ font-weight: 100;
 padding: 8px 15px;
 margin: 4px;
 
+}
+
+/*Specific styling IDs*/
+
+#life, #points {
+font-family: "Cabin Sketch";
+color: white;
+font-size: 22px;
+padding-left: 20px;
+}
+
+#timer{
+  font-size: 40px;
+  font-family:'digital-clock-font';
+}
+
+#win{
+	display: inline-block;
+	font-size: 30px;
+	color: #FCD536;
+	animation: scaling 3s;
+}
+
+#lose{
+	display: inline-block;
+	font-size: 30px;
+	color: #BE1E17;
+	animation: scaling 3s;
+}
+
+/*Downloaded fonts and keyframe styling*/
+
+@font-face{
+ font-family:'digital-clock-font';
+ src: url('fonts/digital-7.regular.ttf');
+}
+
+@font-face{
+ font-family:'chalk';
+ src: url('fonts/chalkitup.ttf');
+}
+
+@keyframes scaling {
+	0%, 100%{
+    font-size: 30px;
+  }
+  50% {
+    font-size: 50px;
+  }
 }

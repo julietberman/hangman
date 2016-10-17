@@ -125,8 +125,7 @@ function checkMatch(){
 function updateLifeScore (){
   var lives = $("p#life").text();
   lives = lives.replace(/\D/g, '');
-
-  var newLife = parseInt(lives) - 1;
+  var newLife = lives - 1;
 
     if (newLife > 0){
       $("p#life").text("Lives Remaining: " + newLife);
@@ -160,20 +159,19 @@ function checkWin(){
   }
 };
 
-
 function revealAnswer (){
   $("div.textBox>h2").html(hangman.storedWord);
   $("div.input").html("<button id='playagain'>Play again!</button>");
   $("button#playagain").on("click", playAgain);
 }
 
-function playAgain (){
-  location.reload();
-}
-
 function bonusPoints(){
   var bonus = seconds * 2;
   $("p#points").append(" + " + bonus + " time bonus")
+}
+
+function playAgain (){
+  location.reload();
 }
 
 });
