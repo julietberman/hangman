@@ -201,6 +201,11 @@ padding-left: 20px;
  src: url('fonts/chalkitup.ttf');
 }
 
+@font-face{
+  font-family:'Cabin Sketch';
+  src: url('fonts/CabinSketch-Regular.otf');
+}
+
 @keyframes scaling {
 	0%, 100%{
     font-size: 30px;
