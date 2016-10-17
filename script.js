@@ -112,20 +112,19 @@ function checkMatch(){
               $(this).addClass('disabled').removeClass('letter');
 
               addPoint();
+              checkWin();
 
               x = "true";
-          }
-          else {
-              $(this).prop('disabled', true);
-              $(this).addClass('disabled').removeClass('letter');
           }
         };
 
   if (x == "false"){
+    $(this).prop('disabled', true);
+    $(this).addClass('disabled').removeClass('letter');
     updateLifeScore();
     hangingMan();
   }
-  checkWin();
+
 };
 
 // runs through to see if there are any more dashes stores in object
