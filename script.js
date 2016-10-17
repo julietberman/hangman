@@ -73,6 +73,7 @@ function createDashes(){
         hangman.dashes[i] = " ";
       }
     }
+    console.log(hangman);
 };
 
 // creates keyboard with each key having its own click event
