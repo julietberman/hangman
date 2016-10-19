@@ -1,7 +1,7 @@
 #Juliet Berman - Hangman
 
 ##Overview
-Hangman is a multi-plater game that allows player 1 to input a word or phrase, of which player 2 will guess.
+Hangman is a multi-player game that allows Player One to input a word or phrase, of which Player Two will guess. There are 8 changes for an incorrect guess and the user has a limited amount of time. Points are evaluated based on number of letters and a time bonus.
 
 ##Approach Taken
 I used an object to store data that would be referenced, evaluated, and updated by concise and clean functions. The functions were modular and used throughout various click events and as callbacks.
