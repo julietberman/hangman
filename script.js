@@ -1,29 +1,32 @@
 $(document).ready(function(){
-
+// for general code clarity, make sure you nest all code within the document ready, and remove any console.logs from production code
 console.log("hello jQuery");
 
 // object stores all data - input word, dashes, keyboard letter values, and hangman images
 var hangman = {
   storedWord: [],
   dashes: [],
+  // a better name for this property maybe letters
   abc: [],
   images: ["images/gallow1.png", "images/gallow2.png", "images/gallow3.png", "images/gallow4.png", "images/gallow5.png", "images/gallow6.png", "images/gallow7.png", "images/gallow8.png"]
 };
 
 // timer function includes global variable to access number of seconds later in point bonus function
-var seconds = 90;
+var seconds = 20;
 var countDown = null;
 
 function timer(){
-
+// indentation!
        seconds--;
         if (seconds >= 0) {
           $("#timer").html(seconds + " seconds");
         }
+        // such a cool simple feature
         if (seconds <= 15){
           $("#timer").css("color", "red");
         }
         if (seconds === 0) {
+          // this looks very similar to whats happening below in the updateLife() function
           $("p#subtext").html("<span id='lose'>GAME OVER!</span>");
           $("input.letter").prop('disabled', true);
           $("div.input").html("<button id='reveal'>Reveal answer?</button><button id='playagain'>Play again!</button>");
@@ -51,6 +54,7 @@ $(".wordChoice").on("click", function(){
 });
 
 // allows "Enter" key to invoke onclick play event
+// check out the submit event for a form, that way you can just use one event
 $(".wordInput").keypress(function(e){
     if(e.which == 13){
       $(".wordChoice").click();
@@ -78,6 +82,8 @@ function createDashes(){
 
 // creates keyboard with each key having its own click event
 function keyboard(){
+  // this seems like a constant in your program, define it in your object at the top of your page, also it seems like your always using uppercase letters, maybe just take that an run with it so you can limit the amount of times you need to call .toUppercase()
+  // how cool would it be if the the keyboard looked like a computer keyboard too? dope
   hangman.abc = "abcdefghijklmnopqrstuvwxyz".split("");
   for (i=0; i< hangman.abc.length; i++){
     $("div.keyboard").append("<input type='button' value='" + hangman.abc[i].toUpperCase() + "' class='letter'>")
@@ -102,9 +108,11 @@ function scoreBoard (){
 // checks letter key with the word input stores in the object
 function checkMatch(){
   var letter = $(this).val();
+  // probably a better variable name for this
   var x = "false";
 
   for (var i = 0; i < hangman.storedWord.length; i++){
+    // indentation
           if (hangman.storedWord[i] == letter){
               hangman.dashes[i] = letter;
               $("div.textBox>h2").html(hangman.dashes);
@@ -142,6 +150,7 @@ function checkWin(){
 
 // if letter match against stored word, adds 10 points per letter
 function addPoint(){
+  // it'd be cool if you gave varying amount of points based on a timer
     var pointsText = $("p#points").text();
     pointsText = pointsText.replace(/\D/g, '');
     var newPoints = parseFloat(pointsText) + 10;
@@ -151,6 +160,7 @@ function addPoint(){
 // if no match of letter in stored word, deducts live value and updates scoreboard
 function updateLifeScore (){
   var lives = $("p#life").text();
+  // dat regex doe
   lives = lives.replace(/\D/g, '');
   var newLife = lives - 1;
 
@@ -191,6 +201,7 @@ function bonusPoints(){
 
 // refreshes page to play again, invoked by click event on button
 function playAgain (){
+  // this seems hacky and doesn't give us that single page action feel, how can i reset the game without having to do a hard page refresh?
   location.reload();
 }
 
